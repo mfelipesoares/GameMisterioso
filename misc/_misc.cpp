@@ -1,6 +1,7 @@
 #include <ncurses.h>
 #include <iostream>
 #include <cstring>
+#include <cstdlib>
 #include "../scene/_scene.hpp"
 #include "_misc.hpp"
 
@@ -9,7 +10,7 @@ void upper(char* input) {
 }
 
 void ask(char* input) {
-    move(32,0);
+    move(51,2);
     getstr(input);
     upper(input);
     refresh();
@@ -35,7 +36,7 @@ void handle_choice(SCENE* prompt, int colorIndex, const char* answers[], functio
                 break;
             }
         }
-        if (answer(input, "QUIT")) break;
+        if (answer(input, "QUIT")) {endwin(); exit(0);}
         clear();
     }
 }

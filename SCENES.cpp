@@ -4,16 +4,18 @@
 #include <iostream>
 #include <stdlib.h>
 #include <SFML/Audio.hpp>
+#define ANS const char *ans[]
+#define FUNCS functionPtr funcs[]
 
 sf::Music music;
 
 #pragma region CENAS
 //         DEFINIÇÃO DE CENAS         //
-// (A arte deve ser no máximo 103x25) //
+// (A arte deve ser no máximo 191x40) //
 
 SCENE test = new_scene(
         "Test",
-        file_content("ASCII/welcome.txt"),
+        file_content("ASCII/test.txt"),
         "answer? [Yes/No]"
     );
 
@@ -29,11 +31,19 @@ SCENE test_caseNo = new_scene(
         "NOOOOOOOOOOOO"
     );
 
+SCENE pecado1 = new_scene(
+    "Pecado 1 - Muito antes da multidão",
+    file_content("ASCII/pecado1.txt"),
+    file_content("captions/pecado1.txt")
+);
+
 SCENE scenes[MAX_SCENES] = {
     test,
     test_caseYes,
     test_caseNo,
+    pecado1
 };
+
 #pragma endregion
 
 #pragma region ANIMACOES
@@ -52,10 +62,14 @@ ANIM animations[MAX_SCENES] = {
 
 #pragma endregion
 
-#pragma region ROTINAS
+#pragma region ROTINAS  
 
 //         DEFINIÇÃO DE ROTINAS        //
 // (Definir da última para a primeira) //
+
+void default_rou() {
+    getch();
+}
 
 void yes_rou() {
     music.openFromFile("audio/comet.wav");
@@ -72,14 +86,17 @@ void no_rou() {
     getch();
 }
 
-void anim_rou() {
-    showAnim(test_anim, 0.3, 5);
+void pecado1_rou() {
+    show(pecado1, 1);
+    ANS = {"PANO", "VASO", "PIA", "PORTA"};
+    FUNCS = {default_rou, default_rou, default_rou, default_rou};
+    handle_choice(&pecado1, 1, ans, funcs, 4);
 }
 
 void start_rou() {
-    const char *answers[] = {"YES", "NO", "ANIM"};
-    functionPtr funcs[] = {yes_rou, no_rou, anim_rou};
-    handle_choice(&test, 1, answers, funcs, 3);
+    ANS = {"YES", "NO", "PECADO"};
+    FUNCS = {yes_rou, no_rou, pecado1_rou};
+    handle_choice(&test, 1, ans, funcs, 3);
 }
 
 #pragma endregion
