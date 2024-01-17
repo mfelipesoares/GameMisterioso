@@ -24,7 +24,7 @@ SCENE new_scene(const char* title, const char* art, const char* text);
 ANIM new_anim(const char* frame1, const char* frame2, const char* frame3);
 
 // mostra a cena s na tela
-void show(SCENE s);
+void show(SCENE s, int colorIndex);
 
 // mostra a animação a na tela
 void showAnim(ANIM a, double sleep_time, int times);
@@ -36,6 +36,6 @@ void free_scenes(SCENE scenes[MAX_SCENES]);
 void free_anim(ANIM animations[MAX_SCENES]);
 
 // faz a tela piscar com uma certa cena
-void blink(SCENE sc, double seconds, int times);
+void blink(SCENE sc, int colorIndex, double seconds, int times);
 
 #endif

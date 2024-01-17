@@ -20,11 +20,11 @@ bool answer(char* input, const char* answer) {
     else return false;
 }
 
-void handle_choice(SCENE* prompt, const char* answers[], functionPtr funcs[], int num_options) {
+void handle_choice(SCENE* prompt, int colorIndex, const char* answers[], functionPtr funcs[], int num_options) {
     char input[5];
 
     while (1) {
-        show(*prompt);
+        show(*prompt, colorIndex);
 
         ask(input);
         int i;
@@ -71,3 +71,4 @@ char* file_content(const char* path) {
 
     return buffer;
 }
+

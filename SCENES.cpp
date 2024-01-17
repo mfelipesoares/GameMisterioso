@@ -3,12 +3,16 @@
 #include <ncurses.h>
 #include <iostream>
 #include <stdlib.h>
+#include <SFML/Audio.hpp>
 
+sf::Music music;
+
+#pragma region CENAS
 //         DEFINIÇÃO DE CENAS         //
 // (A arte deve ser no máximo 103x25) //
 
 SCENE test = new_scene(
-        "test",
+        "Test",
         file_content("ASCII/welcome.txt"),
         "answer? [Yes/No]"
     );
@@ -30,7 +34,9 @@ SCENE scenes[MAX_SCENES] = {
     test_caseYes,
     test_caseNo,
 };
+#pragma endregion
 
+#pragma region ANIMACOES
 //     DEFINIÇÃO DE ANIMAÇÕES      //
 // (A arte deve ser no máximo _x_) //
 
@@ -44,16 +50,25 @@ ANIM animations[MAX_SCENES] = {
     test_anim
 };
 
+#pragma endregion
+
+#pragma region ROTINAS
+
 //         DEFINIÇÃO DE ROTINAS        //
 // (Definir da última para a primeira) //
 
 void yes_rou() {
-    show(test_caseYes);
+    music.openFromFile("audio/comet.wav");
+    music.play();
+
+    show(test_caseYes, 1);
     getch();
+
+    music.stop();
 }
 
 void no_rou() {
-    show(test_caseNo);
+    show(test_caseNo, 2);
     getch();
 }
 
@@ -64,5 +79,7 @@ void anim_rou() {
 void start_rou() {
     const char *answers[] = {"YES", "NO", "ANIM"};
     functionPtr funcs[] = {yes_rou, no_rou, anim_rou};
-    handle_choice(&test, answers, funcs, 3);
+    handle_choice(&test, 1, answers, funcs, 3);
 }
+
+#pragma endregion

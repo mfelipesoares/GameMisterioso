@@ -15,11 +15,23 @@ int main(int argc, char **argv) {
 
     // inicia a tela do ncurses
     initscr();
+    keypad(stdscr, TRUE);
+
+    // define pares de cores
+    if (has_colors()) {
+        start_color();
+
+        // Define color pairs
+        init_pair(1, COLOR_WHITE, COLOR_BLACK);
+        init_pair(2, COLOR_RED, COLOR_BLACK);
+    }
 
     int height, width;
     getmaxyx(stdscr, height, width);
 
     // tela de config
+    #pragma region CONFIGSCR
+    
     while(1) {
         WINDOW *mwin = newwin(height, width, 0, 0);
         refresh();
@@ -36,6 +48,8 @@ int main(int argc, char **argv) {
         else if (answer(input,"QUIT")) {clear(); break;}
         clear();
     }
+    #pragma endregion
+
     refresh();
 
     endwin();

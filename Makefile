@@ -8,4 +8,4 @@ SOURCES = main.cpp scene/_scene.cpp misc/_misc.cpp
 EXECUTABLE = main
 
 all: $(SOURCES)
-	$(CC) -o $(EXECUTABLE) $(SOURCES) -lncurses
+	$(CC) -o $(EXECUTABLE) $(SOURCES) -lncurses -lsfml-audio -lsfml-system

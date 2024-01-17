@@ -15,7 +15,7 @@ void ask(char* input);
 bool answer(char* input, const char* answer);
 
 // redireciona o usuário para uma cena nova dependendo da resposta dada
-void handle_choice(SCENE* prompt, const char* answers[], functionPtr funcs[], int num_options);
+void handle_choice(SCENE* prompt, int colorIndex, const char* answers[], functionPtr funcs[], int num_options);
 
 // abre um arquivo .txt e retorna seu conteúdo para uma variável char[]
 char* file_content(const char* path);

@@ -21,7 +21,8 @@ ANIM new_anim(const char* frame1, const char* frame2, const char* frame3) {
     a->frame3 = frame3;
     return a;
 }
-void show(SCENE s) {
+
+void show(SCENE s, int colorIndex) {
 
     // cria janela
     WINDOW *win = newwin(25, 105, 0, 0);
@@ -31,13 +32,17 @@ void show(SCENE s) {
     //box(win, 0, 0);
 
     // titulo da cena e arte
+    wattron(win, COLOR_PAIR(colorIndex));
     mvwprintw(win, 0, 1, "%s", s->title);
     mvwprintw(win, 2, 0, "%s", s->art);
     wrefresh(win);
+    wattroff(win, COLOR_PAIR(colorIndex));
 
     // texto
     move(26,0);
+    attron(COLOR_PAIR(colorIndex));
     mvprintw(26,0, "%s", s->text);
+    attroff(COLOR_PAIR(colorIndex));
     refresh();
 }
 
@@ -69,10 +74,10 @@ void free_anim(ANIM animations[MAX_SCENES]) {
     for(int i = 0; i < MAX_SCENES; i++) free(animations[i]);
 }
 
-void blink(SCENE sc, double seconds, int times) {
+void blink(SCENE sc, int colorIndex, double seconds, int times) {
     unsigned int ms = (unsigned int)(seconds * 1000000); // conversão para milisegundos
     for(int i = 0; i < times; i++) {
-        show(sc);
+        show(sc,1);
         usleep(ms);
         clear();
         refresh();
