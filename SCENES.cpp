@@ -87,10 +87,16 @@ void no_rou() {
 }
 
 void pecado1_rou() {
+    music.openFromFile("audio/theme.wav");
+    music.setLoop(true);
+    music.play();
+
     show(pecado1, 1);
     ANS = {"PANO", "VASO", "PIA", "PORTA"};
     FUNCS = {default_rou, default_rou, default_rou, default_rou};
     handle_choice(&pecado1, 1, ans, funcs, 4);
+
+    music.stop();
 }
 
 void start_rou() {
